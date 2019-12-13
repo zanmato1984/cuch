@@ -31,6 +31,7 @@ configure_file (src/Core/config_core.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/Core/i
 
 if (NOT MSVC)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=unknown-pragmas")
 endif ()
 
 if (NOT NO_WERROR)
