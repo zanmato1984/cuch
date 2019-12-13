@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.12)
 
 foreach(policy
         CMP0023
@@ -333,6 +333,7 @@ include (cmake/find/simdjson.cmake)
 include (cmake/find/rapidjson.cmake)
 include (cmake/find/fastops.cmake)
 include (cmake/find/orc.cmake)
+include (cmake/find/cudf.cmake)
 
 find_contrib_lib(cityhash)
 find_contrib_lib(farmhash)
