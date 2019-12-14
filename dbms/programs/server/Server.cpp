@@ -7,6 +7,10 @@
 #include <errno.h>
 #include <pwd.h>
 #include <unistd.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshadow"
+#include <rmm/rmm.h>
+#pragma GCC diagnostic pop
 #include <Poco/Version.h>
 #include <Poco/DirectoryIterator.h>
 #include <Poco/Net/HTTPServer.h>
@@ -191,6 +195,9 @@ int Server::main(const std::vector<std::string> & /*args*/)
     CurrentMetrics::set(CurrentMetrics::Revision, ClickHouseRevision::get());
     CurrentMetrics::set(CurrentMetrics::VersionInteger, ClickHouseRevision::getVersionInteger());
 
+    rmmOptions_t options{PoolAllocation, 0, false};
+    rmmInitialize(&options);
+
     /** Context contains all that query execution is dependent:
       *  settings, available functions, data types, aggregate functions, databases...
       */
@@ -300,6 +307,8 @@ int Server::main(const std::vector<std::string> & /*args*/)
           */
         global_context.reset();
         LOG_DEBUG(log, "Destroyed global context.");
+
+        rmmFinalize();
     });
 
     /// Try to increase limit on number of open files.
