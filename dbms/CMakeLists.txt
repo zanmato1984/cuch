@@ -313,7 +313,6 @@ dbms_target_link_libraries (
         PRIVATE
     clickhouse_dictionaries_embedded
         PRIVATE
-    clickhouse_cudf
     ${LZ4_LIBRARY}
         PUBLIC
     ${MYSQLXX_LIBRARY}
@@ -443,7 +442,8 @@ target_include_directories (clickhouse_common_io SYSTEM BEFORE PUBLIC ${DOUBLE_C
 # also for copy_headers.sh:
 target_include_directories (clickhouse_common_io BEFORE PRIVATE ${COMMON_INCLUDE_DIR})
 
-dbms_target_include_directories (PUBLIC ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES} ${CUDA_INCLUDE_DIR} ${CUDF_INCLUDE_DIR} ${CUDF_LIBCUDACXX_INCLUDE_DIR} ${CUDF_CUB_INCLUDE_DIR} ${CUDF_JITIFY_INCLUDE_DIR})
+dbms_target_link_libraries (PRIVATE clickhouse_cudf)
+dbms_target_include_directories (SYSTEM PUBLIC ${CUDA_INCLUDE_DIR} ${CUDF_INCLUDE_DIR})
 
 add_subdirectory (programs)
 add_subdirectory (tests)
