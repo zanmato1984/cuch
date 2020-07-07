@@ -155,23 +155,31 @@ void ASTTableJoin::formatImplBeforeTable(const FormatSettings & settings, Format
     switch (kind)
     {
         case Kind::Inner:
-            settings.ostr << "INNER JOIN";
+            settings.ostr << "INNER ";
             break;
         case Kind::Left:
-            settings.ostr << "LEFT JOIN";
+            settings.ostr << "LEFT ";
             break;
         case Kind::Right:
-            settings.ostr << "RIGHT JOIN";
+            settings.ostr << "RIGHT ";
             break;
         case Kind::Full:
-            settings.ostr << "FULL OUTER JOIN";
+            settings.ostr << "FULL OUTER ";
             break;
         case Kind::Cross:
-            settings.ostr << "CROSS JOIN";
+            settings.ostr << "CROSS ";
             break;
         case Kind::Comma:
             settings.ostr << ",";
             break;
+    }
+
+    if (kind != Kind::Comma)
+    {
+        if (device == Device::GPU)
+            settings.ostr << "GPU ";
+
+        settings.ostr << "JOIN";
     }
 
     settings.ostr << (settings.hilite ? hilite_none : "");

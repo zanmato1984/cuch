@@ -168,6 +168,9 @@ bool ParserTablesInSelectQueryElement::parseImpl(Pos & pos, ASTPtr & node, Expec
                 ParserKeyword("OUTER").ignore(pos);
             }
 
+            if (ParserKeyword("GPU").ignore(pos))
+                table_join->device = ASTTableJoin::Device::GPU;
+
             if (!ParserKeyword("JOIN").ignore(pos, expected))
                 return false;
         }

@@ -1135,6 +1135,7 @@ const char * ParserAlias::restricted_keywords[] =
     "FULL",
     "CROSS",
     "ASOF",
+    "GPU",
     "JOIN",
     "GLOBAL",
     "ANY",

@@ -90,9 +90,16 @@ struct ASTTableJoin : public IAST
         Comma /// Same as direct product. Intended to be converted to INNER JOIN with conditions from WHERE.
     };
 
+    enum class Device
+    {
+        CPU,
+        GPU,
+    };
+
     Locality locality = Locality::Unspecified;
     Strictness strictness = Strictness::Unspecified;
     Kind kind = Kind::Inner;
+    Device device = Device::CPU;
 
     /// Condition. One of fields is non-nullptr.
     ASTPtr using_expression_list;

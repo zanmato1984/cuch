@@ -33,6 +33,8 @@ public:
     virtual bool alwaysReturnsEmptySet() const { return false; }
 
     virtual BlockInputStreamPtr createStreamWithNonJoinedRows(const Block &, UInt64) const { return {}; }
+
+    virtual void finishInsert() {}
 };
 
 using JoinPtr = std::shared_ptr<IJoin>;
